@@ -38,7 +38,7 @@ go get -u github.com/infamousjoeg/go-keyconfig
 For a full example of usage, please see [example/example.go]().
 
 ```golang
-import "github.com/infamousjoeg/go-keyconfig
+import "github.com/infamousjoeg/go-keyconfig"
 ```
 
 ### func SetConfig
