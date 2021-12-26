@@ -1,14 +1,29 @@
+// Package keyconfig implements a simple keychain wrapper for storing and
+// retrieving configs.
+//
 package keyconfig
 
-func SetConfig(configID string, config interface{}) {
-	// Encode the config as a JSON string
-	eJSON, _ := encodeJSON(config)
-	// Encode the JSON string as a base64 string
-	encodedConfig := encodeBase64(eJSON)
-	// Add the config to keychain
-	set(configID, []byte(encodedConfig))
+// SetConfig sets the config to keychain from an interface.
+// Note: The configID is used as the key for the config.
+func SetConfig(configID string, config interface{}) error {
+	// Encode the config to JSON string
+	encodedJSON, err := encodeJSON(config)
+	if err != nil {
+		return err
+	}
+	// Encode the config to base64 string
+	encodedConfig := encodeBase64(encodedJSON)
+	// Set the config to keychain
+	err = set(configID, []byte(encodedConfig))
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
+// GetConfig gets the config from keychain and decodes it into an interface.
+// Note: The configID is used as the key for the config.
 func GetConfig(configID string, config interface{}) (interface{}, error) {
 	// Get the config from keychain
 	encodedConfig, err := get(configID)
@@ -24,4 +39,16 @@ func GetConfig(configID string, config interface{}) (interface{}, error) {
 	}
 
 	return config, nil
+}
+
+// DeleteConfig deletes the config from keychain.
+// Note: The configID is used as the key for the config.
+func DeleteConfig(configID string) error {
+	// Delete the config from keychain
+	err := delete(configID)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

@@ -35,14 +35,14 @@ func configExists(configID string) bool {
 // set is a non-return function that adds the secret and secret value to
 // keychain.
 func set(configID string, config []byte) error {
-	// Add new generic password item to keychain
-	item := keychain.NewGenericPassword(
+	// Add new generic password query to keychain
+	query := keychain.NewGenericPassword(
 		"keyconfig", configID, "keyconfig", config, "",
 	)
-	item.SetSynchronizable(keychain.SynchronizableNo)
-	item.SetAccessible(keychain.AccessibleAfterFirstUnlock)
+	query.SetSynchronizable(keychain.SynchronizableNo)
+	query.SetAccessible(keychain.AccessibleAfterFirstUnlock)
 
-	err := keychain.AddItem(item)
+	err := keychain.AddItem(query)
 	if err != nil {
 		return err
 	}
@@ -79,4 +79,34 @@ func get(configID string) ([]byte, error) {
 	encodedConfig := results[0].Data
 
 	return encodedConfig, nil
+}
+
+// delete is a non-return function that deletes a config from keychain.
+func delete(configID string) error {
+	// Build query for config deletion from Keychain
+	query := keychain.NewItem()
+	query.SetSecClass(keychain.SecClassGenericPassword)
+	query.SetService("keyconfig")
+	query.SetAccount(configID)
+	query.SetMatchLimit(keychain.MatchLimitOne)
+	query.SetReturnData(true)
+	results, err := keychain.QueryItem(query)
+	if err != nil {
+		return err
+	}
+	if len(results) != 1 {
+		return keychain.ErrorItemNotFound
+	}
+
+	err = keychain.DeleteItem(query)
+	if err != nil {
+		return err
+	}
+	// Verify the config was deleted from keychain successfully
+	if configExists(configID) {
+		err := fmt.Errorf("config not deleted from keychain")
+		return err
+	}
+
+	return nil
 }
