@@ -6,15 +6,15 @@ import (
 	"github.com/infamousjoeg/go-keyconfig"
 )
 
-type ExampleConfig struct {
+type exampleConfig struct {
 	BaseURL  string `json:"BaseURL"`
 	Username string `json:"Username"`
 	Password string `json:"Password"`
 	AuthType string `json:"AuthType"`
 }
 
-func ExampleSetConfig() {
-	config := ExampleConfig{
+func exampleSetConfig() {
+	config := exampleConfig{
 		BaseURL:  "https://example.com",
 		Username: "username",
 		Password: "password",
@@ -27,8 +27,8 @@ func ExampleSetConfig() {
 	}
 }
 
-func ExampleGetConfig() {
-	var config ExampleConfig
+func exampleGetConfig() {
+	var config exampleConfig
 
 	err := keyconfig.GetConfig("example", &config)
 	if err != nil {
@@ -57,7 +57,7 @@ func ExampleGetConfig() {
 	fmt.Printf("%+v\n", config.AuthType)
 }
 
-func ExampleDeleteConfig() {
+func exampleDeleteConfig() {
 	err := keyconfig.DeleteConfig("example")
 	if err != nil {
 		panic(err)
@@ -65,7 +65,7 @@ func ExampleDeleteConfig() {
 }
 
 func main() {
-	ExampleSetConfig()
-	ExampleGetConfig()
-	ExampleDeleteConfig()
+	exampleSetConfig()
+	exampleGetConfig()
+	exampleDeleteConfig()
 }
