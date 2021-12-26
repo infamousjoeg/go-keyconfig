@@ -1,6 +1,6 @@
 # go-keyconfig <!-- omit in toc -->
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/infamousjoeg/go-keyconfig.svg)](https://pkg.go.dev/github.com/infamousjoeg/go-keyconfig)
+[![Go Reference](https://pkg.go.dev/badge/github.com/infamousjoeg/go-keyconfig.svg)](https://pkg.go.dev/github.com/infamousjoeg/go-keyconfig) [![keyconfig CI](https://github.com/infamousjoeg/go-keyconfig/actions/workflows/ci.yml/badge.svg)](https://github.com/infamousjoeg/go-keyconfig/actions/workflows/ci.yml)
 
 A Golang package for simplifying storing configuration in the OS-provided secret manager.
 
