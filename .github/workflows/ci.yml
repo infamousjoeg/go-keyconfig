@@ -1,8 +1,6 @@
 name: keyconfig CI
 
-on:
-  pull_request: main
-  push: main
+on: [push, pull_request]
 
 jobs:
   lint:
