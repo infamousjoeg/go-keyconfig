@@ -29,10 +29,7 @@ func set(configID string, config keyring.Item) error {
 	}
 
 	// Check if config exists in keyring
-	exists, err := configExists(configID, kr)
-	if err != nil {
-		return err
-	}
+	exists, _ := configExists(configID, kr)
 	// If config exists, delete it
 	if exists {
 		err = kr.Remove(configID)
