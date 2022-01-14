@@ -3,8 +3,6 @@
 //
 package keyconfig
 
-import "github.com/keybase/go-keychain"
-
 // SetConfig sets the config to keychain from an interface.
 // Note: The configID is used as the key for the config.
 func SetConfig(configID string, config interface{}) error {
@@ -48,7 +46,7 @@ func GetConfig(configID string, config interface{}) error {
 func DeleteConfig(configID string) error {
 	// Delete the config from keychain
 	err := delete(configID)
-	if err != nil && err != keychain.ErrorItemNotFound {
+	if err != nil {
 		return err
 	}
 

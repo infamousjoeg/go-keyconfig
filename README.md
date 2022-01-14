@@ -22,7 +22,8 @@ A Golang package for simplifying storing configuration in the OS-provided secret
 |OS|Secret Manager|
 |--|--|
 |MacOS|OSX Keychain|
-|Linux|Keyring|
+|Linux|Gnome Keyring|
+|Linux|KWallet|
 |Windows|Windows Credential Manager|
 
 ## Installation
