@@ -3,6 +3,8 @@
 //
 package keyconfig
 
+import "github.com/99designs/keyring"
+
 // SetConfig sets the config to keychain from an interface.
 // Note: The configID is used as the key for the config.
 func SetConfig(configID string, config interface{}) error {
@@ -13,8 +15,13 @@ func SetConfig(configID string, config interface{}) error {
 	}
 	// Encode the config to base64 string
 	encodedConfig := encodeBase64(encodedJSON)
+	// Populate the keyring item
+	item := keyring.Item{
+		Key:  configID,
+		Data: []byte(encodedConfig),
+	}
 	// Set the config to keychain
-	err = set(configID, []byte(encodedConfig))
+	err = set(configID, item)
 	if err != nil {
 		return err
 	}

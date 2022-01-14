@@ -19,7 +19,7 @@ func configExists(configID string, kr keyring.Keyring) (bool, error) {
 
 // set is a non-return function that adds the secret and secret value to
 // keychain.
-func set(configID string, config []byte) error {
+func set(configID string, config keyring.Item) error {
 	// Open keyring for config storage
 	kr, err := keyring.Open(keyring.Config{
 		ServiceName: "keyconfig",
@@ -42,10 +42,7 @@ func set(configID string, config []byte) error {
 	}
 
 	// Add config to keyring
-	err = kr.Set(keyring.Item{
-		Key:  configID,
-		Data: config,
-	})
+	err = kr.Set(config)
 	if err != nil {
 		return err
 	}
