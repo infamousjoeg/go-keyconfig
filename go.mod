@@ -2,7 +2,7 @@ module github.com/infamousjoeg/go-keyconfig
 
 go 1.17
 
-require github.com/99designs/keyring v1.1.5
+require github.com/99designs/keyring v1.1.6
 
 require (
 	github.com/danieljoos/wincred v1.0.2 // indirect
@@ -15,3 +15,5 @@ require (
 	golang.org/x/crypto v0.0.0-20200323165209-0ec3e9974c59 // indirect
 	golang.org/x/sys v0.0.0-20190712062909-fae7ac547cb7 // indirect
 )
+
+replace github.com/keybase/go-keychain => github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4
