@@ -2,7 +2,7 @@ module github.com/infamousjoeg/go-keyconfig
 
 go 1.17
 
-require github.com/99designs/keyring v1.1.6
+require github.com/99designs/keyring v1.1.5
 
 require (
 	github.com/danieljoos/wincred v1.0.2 // indirect
