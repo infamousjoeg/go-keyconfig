@@ -1,6 +1,6 @@
 # go-keyconfig <!-- omit in toc -->
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/infamousjoeg/go-keyconfig.svg)](https://pkg.go.dev/github.com/infamousjoeg/go-keyconfig) [![keyconfig CI](https://github.com/infamousjoeg/go-keyconfig/actions/workflows/ci.yml/badge.svg)](https://github.com/infamousjoeg/go-keyconfig/actions/workflows/ci.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/infamousjoeg/go-keyconfig.svg)](https://pkg.go.dev/github.com/infamousjoeg/go-keyconfig) [![CodeQL](https://github.com/infamousjoeg/go-keyconfig/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/infamousjoeg/go-keyconfig/actions/workflows/codeql-analysis.yml) [![keyconfig CI](https://github.com/infamousjoeg/go-keyconfig/actions/workflows/ci.yml/badge.svg)](https://github.com/infamousjoeg/go-keyconfig/actions/workflows/ci.yml)
 
 A Golang package for simplifying storing configuration in the OS-provided secret manager.
 
@@ -11,6 +11,10 @@ A Golang package for simplifying storing configuration in the OS-provided secret
   - [func SetConfig](#func-setconfig)
   - [func GetConfig](#func-getconfig)
   - [func DeleteConfig](#func-deleteconfig)
+  - [Screenshots](#screenshots)
+    - [MacOS](#macos)
+    - [Linux](#linux)
+    - [Windows](#windows)
 - [Testing](#testing)
 - [Security](#security)
 - [License](#license)
@@ -65,6 +69,24 @@ func DeleteConfig (configID string) error
 ```
 
 `keyconfig.DeleteConfig` removes a Base64-encoded key/value config from the current OS secret store using the `configID` value as the identifier. Only an error will be returned, if one occurs.
+
+### Screenshots
+
+#### MacOS
+
+[![MacOS Image 1](assets/macos-1.png)]()
+
+[![MacOS Image 2](assets/macos-2.png)]()
+
+#### Linux
+
+[![Linux Image 1](assets/linux-1.png)]()
+
+[![Linux Image 2](assets/linux-2.png)]()
+
+#### Windows
+
+[![Windows Image 1](assets/windows-1.png)]()
 
 ## Testing
 
