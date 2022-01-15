@@ -7,7 +7,7 @@ import (
 )
 
 // configExists is a boolean function to verify a config is present in keychain
-func configExists(configID string, kr keyring.Keyring) (bool, error) {
+func configExists(kr keyring.Keyring, configID string) (bool, error) {
 	// Check if config exists in keyring
 	_, err := kr.Get(configID)
 	if err != nil {
@@ -19,45 +19,25 @@ func configExists(configID string, kr keyring.Keyring) (bool, error) {
 
 // set is a non-return function that adds the secret and secret value to
 // keychain.
-func set(configID string, config keyring.Item) error {
-	// Open keyring for config storage
-	kr, err := keyring.Open(keyring.Config{
-		AllowedBackends: []keyring.BackendType{
-			"secret-service",
-			"keychain",
-			"kwallet",
-			"wincred",
-		},
-		ServiceName:              "keyconfig",
-		KeychainName:             "keyconfig",
-		KeychainTrustApplication: true,
-		WinCredPrefix:            "keyconfig",
-		KWalletAppID:             "keyconfig",
-		KWalletFolder:            "keyconfig",
-		LibSecretCollectionName:  "keyconfig",
-	})
-	if err != nil {
-		return err
-	}
-
+func set(kr keyring.Keyring, configID string, config keyring.Item) error {
 	// Check if config exists in keyring
-	exists, _ := configExists(configID, kr)
+	exists, _ := configExists(kr, configID)
 	// If config exists, delete it
 	if exists {
-		err = kr.Remove(configID)
+		err := kr.Remove(configID)
 		if err != nil {
 			return err
 		}
 	}
 
 	// Add config to keyring
-	err = kr.Set(config)
+	err := kr.Set(config)
 	if err != nil {
 		return err
 	}
 
 	// Verify the config was set in keychain successfully
-	_, err = configExists(configID, kr)
+	_, err = configExists(kr, configID)
 	if err != nil {
 		err := fmt.Errorf("config not found in keychain")
 		return err
@@ -68,14 +48,7 @@ func set(configID string, config keyring.Item) error {
 
 // get is a non-return function that retrieves a config and returns it
 // as a struct.
-func get(configID string) ([]byte, error) {
-	// Open keyring for config query
-	kr, err := keyring.Open(keyring.Config{
-		ServiceName: "keyconfig",
-	})
-	if err != nil {
-		return nil, err
-	}
+func get(kr keyring.Keyring, configID string) ([]byte, error) {
 	// Get config from keyring
 	results, err := kr.Get(configID)
 	if err != nil {
@@ -86,22 +59,15 @@ func get(configID string) ([]byte, error) {
 }
 
 // delete is a non-return function that deletes a config from keychain.
-func delete(configID string) error {
-	// Open keyring for config deletion
-	kr, err := keyring.Open(keyring.Config{
-		ServiceName: "keyconfig",
-	})
-	if err != nil {
-		return err
-	}
+func delete(kr keyring.Keyring, configID string) error {
 	// Delete config from keyring
-	err = kr.Remove(configID)
+	err := kr.Remove(configID)
 	if err != nil {
 		return err
 	}
 
 	// Verify the config was deleted from keychain successfully
-	_, err = configExists(configID, kr)
+	_, err = configExists(kr, configID)
 	if err == nil {
 		err := fmt.Errorf("config not deleted from keychain")
 		return err
