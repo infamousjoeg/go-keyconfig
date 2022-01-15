@@ -22,7 +22,19 @@ func configExists(configID string, kr keyring.Keyring) (bool, error) {
 func set(configID string, config keyring.Item) error {
 	// Open keyring for config storage
 	kr, err := keyring.Open(keyring.Config{
-		ServiceName: "keyconfig",
+		AllowedBackends: []keyring.BackendType{
+			"secret-service",
+			"keychain",
+			"kwallet",
+			"wincred",
+		},
+		ServiceName:              "keyconfig",
+		KeychainName:             "keyconfig",
+		KeychainTrustApplication: true,
+		WinCredPrefix:            "keyconfig",
+		KWalletAppID:             "keyconfig",
+		KWalletFolder:            "keyconfig",
+		LibSecretCollectionName:  "keyconfig",
 	})
 	if err != nil {
 		return err
