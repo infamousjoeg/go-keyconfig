@@ -28,5 +28,11 @@ jobs:
         with:
           stable: 'true'
           go-version: '^1.17.3'
+      - name: Create keychain
+        run: security create-keychain -p Password123 keyconfig
+      - name: Unlock keychain
+        run: security unlock-keychain -p Password123 keyconfig
       - name: Test All
         run: go test -v ./...
+      - name: Delete keychain
+        run: security delete-keychain keyconfig
